@@ -1,13 +1,15 @@
 <template>
     <div>
     <header className="QiitaApp-header">
+        <br />
+        <a href="https://mbp.hatenablog.com/entry/2022/07/13/234924" target="_blank" rel="noreferrer" >MacでNuxt 3、VercelでNuxt3 App、QiitaAPIで記事情報を取得して表示</a><br />
         <button @click="getQiitaData()">Vue.js</button>
         <button @click="getQiitaDataReact()">React</button>
         <div v-if="isClick">
             <table class="table table-striped">
                 <tr v-for="(item, index) in displayQiitaDataList" :key="index" align="left">
                     <td class="text-left"><img :src="item.user.profile_image_url" width="50" height="50" loading="lazy" alt="img" />
-<a :href="item.url" target="_blank" rel="noreferrer" className="QiitaApp-link">{{ item.title }}</a> {{item.created_at}}</td>
+<a :href="item.url" target="_blank" rel="noreferrer">{{ item.title }}</a> {{item.created_at}}</td>
                 </tr>
             </table>
             <div>
