@@ -12,6 +12,11 @@
 <a :href="item.url" target="_blank" rel="noreferrer">{{ item.title }}</a> {{item.created_at}}</td>
                 </tr>
             </table>
+            Page: {{page}}, tag: Vue.js, Loading: {{isLoading}}
+            <br />
+            <p v-if="isLoading">
+              Loading .... page: {{page}}/20posts/{{20*(page-1)+1}}</p>
+            <p v-else>Not Loading. page: {{page}}/20posts/{{20*(page-1)+1}}</p>
             <div>
                 <h3>記事数 {{ totalArticle }}コ</h3>// h3で文字サイズ調整すな←
             </div>
@@ -31,14 +36,30 @@ export default {
             totalArticle: 0,
             totalLGTM: 0,
             isClick: false,
+            page: 0,
+            allQiitaData: [],
+            isLoading: false,
         }
     },
     methods: {
+        getNextPage: function() {
+          window.onscroll = () => {
+            if (
+              window.innerHeight + document.documentElement.scrollTop !==
+              document.documentElement.offsetHeight
+            ) {
+              return;
+            }
+            this.isLoading = true;
+            this.getQiitaData();
+          }
+        },
         getQiitaData: function() {
-            axios.get(`https://qiita.com/api/v2/tags/Vue.js/items?page=1&per_page=20`, {})
+            this.page = this.page + 1;
+            axios.get(`https://qiita.com/api/v2/tags/Vue.js/items?page=${this.page}&per_page=20`, {})
             .then(res => {
                 let allQiitaData = [];
-                allQiitaData = res.data;
+                allQiitaData = this.allQiitaData.concat(res.data);
 
                 let displayQiitaDataList = [];
                 let totalLGTM = 0;
@@ -53,7 +74,12 @@ export default {
                 this.totalArticle = displayQiitaDataList.length;
                 // clickによる表示の制御
                 this.isClick = true;
+                this.allQiitaData = allQiitaData;
+            }).catch(err => {
+              //this.error = err.message;  // Request failed with status code 403
+              this.error = "Rate limit exceeded";
             })
+            this.isLoading = false;
         },
         getQiitaDataReact: function() {
             axios.get(`https://qiita.com/api/v2/tags/React/items?page=1&per_page=20`, {})
@@ -76,6 +102,9 @@ export default {
                 this.isClick = true;
             })
         },
+    },
+    mounted() {
+      this.getNextPage();
     }
 }
 
