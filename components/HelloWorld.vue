@@ -13,7 +13,7 @@
                 <div class="card-text">
                   <a :href="item.url" target="_blank" rel="noreferrer" class="QiitaApp-link">{{ item.title }}</a>
                   <div class="card-text2">
-                    <p>{{item.created_at}},{{hello}}</p>
+                    <p>{{item.created_at}}</p>
                   </div>
                 </div>
               </td>
