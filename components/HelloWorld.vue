@@ -1,26 +1,30 @@
 <template>
     <div>
-    <header className="QiitaApp-header">
+    <header class="QiitaApp-header">
         <br />
-        <a href="https://mbp.hatenablog.com/entry/2022/07/13/234924" target="_blank" rel="noreferrer" >MacでNuxt 3、VercelでNuxt3 App、QiitaAPIで記事情報を取得して表示</a><br />
+        <a href="https://mbp.hatenablog.com/entry/2022/07/13/234924" target="_blank" rel="noreferrer" >MacでNuxt 3、VercelでNuxt3 App、QiitaAPIで記事情報を取得して表示(vercel-nuxt3_)</a><br />
         <button @click="getQiitaData()">Vue.js</button>
         <button @click="getQiitaDataReact()">React</button>
         <div v-if="isClick">
-            <table class="table table-striped">
-                <tr v-for="(item, index) in displayQiitaDataList" :key="index" align="left">
-                    <td class="text-left"><img :src="item.user.profile_image_url" width="50" height="50" loading="lazy" alt="img" />
-<a :href="item.url" target="_blank" rel="noreferrer">{{ item.title }}</a> {{item.created_at}}</td>
-                </tr>
-            </table>
-            Page: {{page}}, tag: Vue.js, Loading: {{isLoading}}
-            <br />
-            <p v-if="isLoading">
-              Loading .... page: {{page}}/20posts/{{20*(page-1)+1}}</p>
-            <p v-else>Not Loading. page: {{page}}/20posts/{{20*(page-1)+1}}</p>
+          <table class="table table-striped">
+            <tr v-for="(item, index) in displayQiitaDataList" :key="index" align="left">
+              <td class="card-container">
+                <img :src="item.user.profile_image_url" width="50" height="50" loading="lazy" alt="img" />
+                <div class="card-text">
+                  <a :href="item.url" target="_blank" rel="noreferrer" class="QiitaApp-link">{{ item.title }}</a>
+                  <div class="card-text2">
+                    <p>{{item.created_at}}</p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+         </table>
+        </div>
+        <p v-if="isLoading">Loading .... page: {{page}}/20posts/{{20*(page-1)+1}}</p>
+        <p v-else>Not Loading. page: {{page}}/20posts/{{20*(page-1)+1}}</p>
             <div>
                 <h3>記事数 {{ totalArticle }}コ</h3>// h3で文字サイズ調整すな←
             </div>
-        </div>
     </header>
     </div>
 </template>
@@ -109,3 +113,45 @@ export default {
 }
 
 </script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.QiitaApp-header {
+  background-color: #282c34;
+  color: orange;
+}
+.QiitaApp-link {
+  color: white;
+}
+a {
+  text-decoration: none;
+}
+.card-container{
+  display: flex;
+  height: 34px;
+}
+
+.card-text a{
+  color: white;
+  font-size: 14px;
+  line-height: 1.2em;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.card-text2{
+  font-size: 11px;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+</style>
