@@ -1,7 +1,5 @@
 <template>
-    <div>
     <header class="QiitaApp-header">
-        <br />
         <a href="https://mbp.hatenablog.com/entry/2022/07/13/234924" target="_blank" rel="noreferrer" >MacでNuxt 3、VercelでNuxt3 App、QiitaAPIで記事情報を取得して表示(vercel-nuxt3_)</a><br />
         <button @click="getQiitaData()">Vue.js</button>
         <button @click="getQiitaDataReact()">React</button>
@@ -26,7 +24,6 @@
                 <h3>記事数 {{ totalArticle }}コ</h3>// h3で文字サイズ調整すな←
             </div>
     </header>
-    </div>
 </template>
 
 <script>
@@ -122,6 +119,10 @@ export default {
 
 <style>
 * {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -135,6 +136,7 @@ export default {
 }
 a {
   text-decoration: none;
+  color: white;
 }
 .card-container{
   display: flex;
