@@ -18,5 +18,5 @@ export default defineNuxtConfig({
     description: 'Nuxt3',
     theme_color: '#212121',
     background_color: '#212121'
-  },
+  }
 })
