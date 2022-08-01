@@ -5,6 +5,15 @@ export default defineNuxtConfig({
   buildModules: [
     '@nuxtjs/pwa'
   ],
+  pwa: {
+    icon: {
+      source: '/icon.png',    // このファイルを元に各サイズ毎のアイコン画像を自動生成してくれる
+      fileName: 'icon.png',
+      sizes: [64, 120, 144, 152, 192, 384, 512],
+      targetDir: 'icons',
+      plugin: true,
+    }
+  },
   /*
    ** @nuxtjs/pwa Configuration
    ** https://github.com/nuxt-community/pwa-module
