@@ -10,6 +10,7 @@
     "nuxt": "3.0.0-rc.4"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
     "axios": "^0.27.2",
     "dayjs": "^1.11.4"
   }
