@@ -2,7 +2,7 @@ import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: [
+  buildModules: [
     '@nuxtjs/pwa'
   ],
   /*
@@ -10,13 +10,12 @@ export default defineNuxtConfig({
    ** https://github.com/nuxt-community/pwa-module
    */
   manifest: {
-    name: 'demo',
+    display: 'standalone',
+    name: 'Nuxt3',
     lang: 'ja',
-    short_name: 'demo',
-    title: 'demo',
-    'og:title': 'demo',
-    description: 'demoサイトです',
-    'og:description': 'demoサイトです',
+    short_name: 'Nuxt3',
+    title: 'Nuxt3',
+    description: 'Nuxt3',
     theme_color: '#212121',
     background_color: '#212121'
   },
