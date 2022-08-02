@@ -1,5 +1,6 @@
 <template>
     <header class="QiitaApp-header">
+        <font color="red"><b>{{error}}</b></font><br />
         <a href="https://mbp.hatenablog.com/entry/2022/07/13/234924" target="_blank" rel="noreferrer" >MacでNuxt 3、VercelでNuxt3 App、QiitaAPIで記事情報を取得して表示(vercel-nuxt3_)</a><br />
         <button @click="getQiitaData()">Vue.js</button>
         <button @click="getQiitaDataReact()">React</button>
@@ -44,6 +45,7 @@ export default {
             page: 0,
             allQiitaData: [],
             isLoading: false,
+            error: "",
             //hello: "",
         }
     },
