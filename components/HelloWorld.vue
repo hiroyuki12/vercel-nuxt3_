@@ -1,9 +1,23 @@
 <template>
     <header class="QiitaApp-header">
         <font color="red"><b>{{error}}</b></font><br />
+        <font color="red"><b>{{errorMessage}}</b></font><br />
+        <p>Nuxt.js 3</p>
         <a href="https://mbp.hatenablog.com/entry/2022/07/13/234924" target="_blank" rel="noreferrer" >MacでNuxt 3、VercelでNuxt3 App、QiitaAPIで記事情報を取得して表示(vercel-nuxt3_)</a><br />
-        <button @click="getQiitaData()">Vue.js</button>
-        <button @click="getQiitaDataReact()">React</button>
+        <button @click="tagButtonClick('React')">React</button>
+        <button @click="tagButtonClick('Next.js')">Next.js</button>
+        <button @click="tagButtonClick('Vue.js')">Vue.js</button>
+        <button @click="tagButtonClick('Nuxt')">Nuxt.js</button>
+        <button @click="tagButtonClick('Swift')">Swift</button>
+        <button @click="tagButtonClick('Vim')">Vim</button>
+        <button @click="tagButtonClick('Azure')">Azure</button>
+        <button @click="tagButtonClick('AWS')">AWS</button>
+        <button @click="tagButtonClick('.NET')">.NET</button>
+        <button @click="tagButtonClick('Flutter')">Flutter</button>
+        {{tag}}<br />
+        page:<button @click="pageButtonClick('1')">__1__</button>
+        __:<button @click="pageButtonClick('10')">__10__</button>
+        __:<button @click="pageButtonClick('50')">__50__</button>{{page}}<br /><br />
         <div v-if="isClick">
           <table class="table table-striped">
             <tr v-for="(item, index) in displayQiitaDataList" :key="index" align="left">
@@ -42,14 +56,23 @@ export default {
             totalArticle: 0,
             totalLGTM: 0,
             isClick: false,
-            page: 0,
+            page: 1,
+            tag: "Nuxt",
             allQiitaData: [],
-            isLoading: false,
             error: "",
-            //hello: "",
+            errorMessage: "",
+            isLoading: false,
         }
     },
     methods: {
+        tagButtonClick: function(tag) {
+          this.tag = tag;
+          //this.page = 0;
+          this.allQiitaData = [];
+          this.displayQiitaDataList = [];
+
+          this.getQiitaData();
+        },
         getNextPage: function() {
           window.onscroll = () => {
             if (
@@ -59,13 +82,13 @@ export default {
               return;
             }
             this.isLoading = true;
+            this.page = this.page + 1;
             this.getQiitaData();
           }
         },
         getQiitaData: function() {
-            //this.hello = dayjs('2022-07-28T01:00:00').fromNow() // => days ago
-            this.page = this.page + 1;
-            axios.get(`https://qiita.com/api/v2/tags/Vue.js/items?page=${this.page}&per_page=20`, {})
+            this.isLoading = true;
+            axios.get(`https://qiita.com/api/v2/tags/${this.tag}/items?page=${this.page}&per_page=20`, {})
             .then(res => {
                 let allQiitaData = [];
                 allQiitaData = this.allQiitaData.concat(res.data);
@@ -74,47 +97,37 @@ export default {
                 let totalLGTM = 0;
                 allQiitaData.forEach(function (item) {
                     displayQiitaDataList.push(item);
-                    //totalLGTM += item.likes_count;
                 })
                 // forEach内でthis.displayQiitaDataListへ格納できないので外でやる
                 this.displayQiitaDataList = displayQiitaDataList.sort();
-                this.totalLGTM = totalLGTM;
                 // total記事数を取得
                 this.totalArticle = displayQiitaDataList.length;
                 // clickによる表示の制御
                 this.isClick = true;
                 this.allQiitaData = allQiitaData;
             }).catch(err => {
-              //this.error = err.message;  // Request failed with status code 403
               this.error = "Rate limit exceeded";
+              this.errorMessage = err.message;  // Request failed with status code 403
             })
             this.isLoading = false;
         },
-        getQiitaDataReact: function() {
-            axios.get(`https://qiita.com/api/v2/tags/React/items?page=1&per_page=20`, {})
-            .then(res => {
-                let allQiitaData = [];
-                allQiitaData = res.data;
-
-                let displayQiitaDataList = [];
-                let totalLGTM = 0;
-                allQiitaData.forEach(function (item) {
-                    displayQiitaDataList.push(item);
-                    //totalLGTM += item.likes_count;
-                })
-                // forEach内でthis.displayQiitaDataListへ格納できないので外でやる
-                this.displayQiitaDataList = displayQiitaDataList.sort();
-                this.totalLGTM = totalLGTM;
-                // total記事数を取得
-                this.totalArticle = displayQiitaDataList.length;
-                // clickによる表示の制御
-                this.isClick = true;
-            })
+        pageButtonClick: function(target) {
+            const tmp = parseInt(target,10);
+            this.page = tmp;
+        },
+        outputTest: function() {
+            console.log(page);
         },
     },
     mounted() {
       this.getNextPage();
-    }
+    },
+    created() {
+      this.getQiitaData();
+    },
+    //watch: {
+    //  tag: 'outputTest'
+    //}
 }
 
 </script>
