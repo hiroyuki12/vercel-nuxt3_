@@ -9,6 +9,7 @@
         <button @click="tagButtonClick('Vue.js')">Vue.js</button>
         <button @click="tagButtonClick('Nuxt.js')">Nuxt.js</button>
         <button @click="tagButtonClick('Nuxt3')">Nuxt3</button>
+        <button @click="tagButtonClick('JavaScript')">JavaScript</button>
         <button @click="tagButtonClick('Swift')">Swift</button>
         <button @click="tagButtonClick('Vim')">Vim</button>
         <button @click="tagButtonClick('Azure')">Azure</button>
