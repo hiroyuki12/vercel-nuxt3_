@@ -39,6 +39,7 @@
                 <h3>記事数 {{ totalArticle }}コ</h3>// h3で文字サイズ調整すな←
             </div>
     </header>
+    <div class="QiitaApp-footer">{{tag}} Page {{page}}/20posts</div>
 </template>
 
 <script>
@@ -57,7 +58,7 @@ export default {
             totalLGTM: 0,
             isClick: false,
             page: 1,
-            tag: "Nuxt",
+            tag: "Nuxt.js",
             allQiitaData: [],
             error: "",
             errorMessage: "",
@@ -142,6 +143,15 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.QiitaApp-footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 60px;
+  background-color: #282c44;
+  text-align: center;
+  color: white;
 }
 .QiitaApp-header {
   background-color: #282c34;
