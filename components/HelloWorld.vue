@@ -26,7 +26,7 @@
                 <div class="card-text">
                   <a :href="item.url" target="_blank" rel="noreferrer" class="QiitaApp-link">{{ item.title }}</a>
                   <div class="card-text2">
-                    <p>{{item.created_at}} / {{item.tags[0].name}} / {{item.likes_count}}likes / {{item.user.items_count}}posts</p>
+                    <p>{{item.updated_at}} / {{item.tags[0].name}} / {{item.likes_count}}likes / {{item.user.items_count}}posts</p>
                   </div>
                 </div>
               </td>
@@ -43,10 +43,10 @@
 
 <script>
 import axios from "axios";
-//import dayjs from "dayjs";
+import dayjs, { extend } from "dayjs";
 // 相対日時のプラグインを有効化
-//import relativeTime from "dayjs/plugin/relativeTime"
-//dayjs.extend(relativeTime)
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime)
 
 export default {
     data() {
@@ -96,6 +96,7 @@ export default {
                 let displayQiitaDataList = [];
                 let totalLGTM = 0;
                 allQiitaData.forEach(function (item) {
+                    item.updated_at = dayjs(item.created_at).fromNow(true);
                     displayQiitaDataList.push(item);
                 })
                 // forEach内でthis.displayQiitaDataListへ格納できないので外でやる
