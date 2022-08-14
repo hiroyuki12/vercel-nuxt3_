@@ -71,6 +71,7 @@ export default {
     },
     methods: {
         tagButtonClick: function(tag) {
+          this.perPage = 20;
           this.tag = tag;
           //this.page = 0;
           this.allQiitaData = [];
@@ -82,7 +83,11 @@ export default {
             this.perPage = 100;
             const tmp = parseInt(target,10);
             this.page = tmp;
-            this.tagButtonClick(this.tag);
+            //this.tagButtonClick(this.tag);
+            this.allQiitaData = [];
+            this.displayQiitaDataList = [];
+
+            this.getQiitaData();
         },
         getNextPage: function() {
           window.onscroll = () => {
