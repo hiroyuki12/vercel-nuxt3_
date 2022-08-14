@@ -27,5 +27,10 @@ export default defineNuxtConfig({
     description: 'Nuxt3',
     theme_color: '#212121',
     background_color: '#212121'
+  },
+  publicRuntimeConfig: {
+  //privateRuntimeConfig: {
+    youTubeApiKey: process.env.YOUTUBE_API_KEY,
   }
+
 })
