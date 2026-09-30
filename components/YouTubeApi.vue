@@ -33,7 +33,7 @@ import axios from 'axios';
 
 export default {
   name: "SearchYoutube",
-  data: function({ $config }) {
+  data() {
     return {
       results: null,
       keyword: "ヒカキン",
@@ -43,7 +43,7 @@ export default {
         type: "video",
         maxResults: "1", // 最大検索数
         order: "viewCount",
-        key: $config.youTubeApiKey
+        key: this.$config.public.youTubeApiKey
       }
     };
   },

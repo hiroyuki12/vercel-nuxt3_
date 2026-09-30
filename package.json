@@ -7,11 +7,11 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.4"
+    "@vite-pwa/nuxt": "^1.1.1",
+    "nuxt": "^3.21.11"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^3.3.5",
-    "axios": "^0.27.2",
+    "axios": "^1.20.0",
     "dayjs": "^1.11.4"
   }
 }
